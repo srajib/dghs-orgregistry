@@ -1,0 +1,40 @@
+<!--
+	<div style="margin-top:15px;width:1235px;">
+		<table class="tableHeader" id="drafts" cellpadding="0" cellspacing="0" width="80%">
+			<tr>
+				<th width="50">&nbsp;</th>
+				<th width="250"><?php echo $paginator->sort('title');?></th>
+				<th width="300"><?php echo $paginator->sort('body');?></th>
+				<th width="300"><?php echo $paginator->sort('navigation_id');?></th>
+				<th width="70" class="actions"><?php __('Actions');?></th>
+			</tr>
+			<?php
+			$i = 0;
+			$Number = $paginator->counter(array('format' => __('%start%', true)));;
+			foreach ($AllPosts as $AllPage):
+				$class = null;
+				if ($i++ % 2 == 0) {
+					$class = ' class="altrow"';
+				}
+
+			?>
+				<tr<?php echo $class;?>>
+					<td width="20px;"><?php echo $Number."."; ?></td>
+					<td><?php echo $AllPage['Page']['title']; ?></td>
+					<td><?php echo $AllPage['Page']['body']; ?></td>
+					<td><?php echo $AllPage['Navigation']['name']; ?></td>
+				<td class="actions">			
+					<?php echo $html->link($html->image('admin/icon-pen1.gif'), array('action'=>'admin_edit', $AllPage['Page']['id']),array('escape' => false, 'title'=>'Change password', 'alt'=>'Change password')); ?>
+					<?php echo $html->link($html->image('admin/trash.gif'), array('action'=>'admin_delete', $AllPage['Page']['id']), array('escape' => false, 'title'=>'delete', 'alt'=>'delete'), sprintf(__('Are you sure you want to delete # %s?', true), $AllPage['Page']['id'])); ?>
+				</td>
+
+				</tr>
+				<?php $Number++; endforeach; ?>
+			
+		</table>
+	</div>			
+	<div class="paging">
+		<?php echo $paginator->prev('<< '.__('previous', true), array(), null, array('class'=>'disabled'));?>
+	 | 	<?php echo $paginator->numbers();?>
+		<?php echo $paginator->next(__('next', true).' >>', array(), null, array('class'=>'disabled'));?>
+	</div>
